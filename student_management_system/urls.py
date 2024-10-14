@@ -23,16 +23,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('base/', views.BASE, name='base'), 
 
-    # लॉगिन पाथ
+   
     path('', views.Login, name='login'), 
     path('doLogin', views.doLogin, name='doLogin'),  
     path('doLogout', views.doLogout, name='logout'),  
 
-    # प्रोफ़ाइल अपडेट
     path('profile', views.Profile, name="profile"),
     path('profile/update', views.Profile_update, name="profile_update"),
 
-    # HOD पैनल URL
+   
     path('HOD/Home', Hod_views.Home, name='hod_home')
 
 ] 
