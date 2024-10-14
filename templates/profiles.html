@@ -1,0 +1,117 @@
+{% extends "base.html" %} 
+
+{% block content %} 
+
+<section class="content" >
+  <div class="container-fluid mt-4">
+    <div class="row" style="margin-left: 307px;">
+      
+      <!-- left column -->
+      <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" >
+           {{message}}
+          <button type="button" class="btn-close bg-success" style="border: none;" data-bs-dismiss="alert" aria-label="Close"> 
+            <span aria-hedden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        <!-- jquery validation -->
+        <div class="card card-primary" style="background-color: gainsboro;">
+
+          <h1 class="text-center mt-2"> Profile Update</h1>
+       
+          <!-- /.card-header -->
+          <!-- form start -->
+        
+          
+            <form action="{% url 'profile_update' %}" method="post" enctype="multipart/form-data">
+
+
+            {% csrf_token %}
+            <div class="card-body">
+              <div class="form-group">
+                <label for="exampleInputFile">Profiles Pic</label>
+                <input
+                  type="file"
+                  name="profile_pic"
+                  class="form-control"
+                  accept="image/*"
+                
+                />
+              </div>
+              
+              <div class="form-group">
+                <label for="FullName">First Name</label>
+                <input
+                  type="text"
+                  name="first_name"
+                  class="form-control"
+                 value="{{user.first_name}}"
+                 
+                />
+              </div>
+              <div class="form-group">
+                <label for="FullName">Last Name</label>
+                <input
+                  type="text"
+                  name="last_name"
+                  class="form-control"
+                  value="{{user.last_name}}"
+                 
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"  
+                  value="{{user.email}}"           
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="FullName">User Name</label>
+                <input
+                  type="text"
+                  name="username"
+                   value="{{user.username}}"
+                  class="form-control"
+                 
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+               
+                  placeholder="Enter Password"
+                />
+              </div>
+              
+           
+         
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" class="btn btn-success">
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+  
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+{% endblock content %}
