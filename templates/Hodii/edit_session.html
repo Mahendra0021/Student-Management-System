@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block content %}
+<div class="content container-fluid">
+  <div class="content container-fluid">
+    <div class="page-header">
+      <div class="row align-items-center justify-content-center">
+        <div
+          class="col-sm-12 col-md-9"
+          style="margin-left: 190px; margin-top: 10px"
+        >
+          <h3 class="page-title">Update Session</h3>
+          <ul class="breadcrumb">
+            {% include "includes/messages.html" %}
+            <li class="breadcrumb-item"><a href="#">Session</a></li>
+            <li class="breadcrumb-item active">Update Session</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-9" style="margin-left: 193px">
+      <div class="card">
+        <div class="card-body">
+          <!-- Update the form action to the edit view -->
+          <form action="{% url 'update_session' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-12">
+                <h5 class="form-title"><span>Session Information</span></h5>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Session Year Start</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="session_year_start"
+                    value="{{ session_year.session_start }}"
+                    required
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="session_id"
+                    value="{{ session_year.id }}"
+                    hidden
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Session Year End</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="session_year_end"
+                    value="{{ session_year.session_end}}"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary" type="submit">
+                  Update Session
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

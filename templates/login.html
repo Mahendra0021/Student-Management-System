@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SMS</title>
+    <title>Student-Management-System</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link
@@ -12,6 +12,7 @@
     />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/login_css.css' %}" />
     <!-- Ionicons -->
     <link
       rel="stylesheet"
@@ -59,9 +60,7 @@
       
 
       <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row" style="margin-left: 307px;">
+    
             
             <!-- left column -->
             <div class="col-md-8">
@@ -77,65 +76,48 @@
               {% endif %}
               {% endfor %}
               {% endif %}
-              <!-- jquery validation -->
-              <div class="card card-primary mt-4">
-                <section class="content-header">
-                  <div class="container-fluid">
-                    <div class="row  text-center">
-                      <div class="col-sm-12">
-                        <h1>Login Page</h1>
-                        <p>Access to our dashboard</p>
-                        
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.container-fluid -->
-                </section>
-                <!-- /.card-header -->
-                <!-- form start -->
-                <form action="{% url 'doLogin' %}" method="post">
-
-                  {% csrf_token %}
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input
-                        type="email"
-                        name="email"
-                        class="form-control"
-                       
-                        placeholder="Enter email"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input
-                        type="password"
-                        name="password"
-                        class="form-control"
+              <div class="container">
+                <div class="title">Login-Page</div>
+                <div class="content">
+                  <form action="{% url 'doLogin' %}" method="post">
+            
+                    {% csrf_token %}
+                    <div class="user-details">
+            
                       
-                        placeholder="Password"
-                      />
+                      <div class="input-box">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input
+                          type="email"
+                          name="email"
+                          class="form-control"
+                         
+                          placeholder="Enter email"
+                        />
+                         </div>
+            
+                      <div class="input-box">
+                        <label>Password</label>
+                                  <input
+                                    type="password"
+                                    name="password"
+                                    class="form-control"
+                                  
+                                    placeholder="Password"
+                                  />    </div>
+            
                     </div>
                     
-                 
-               
-                  <!-- /.card-body -->
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">
-                      Submit
-                    </button>
-                  </div>
-                </form>
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-        
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-      </section>
-      <!-- /.content -->
-    </div>
+            
+               
 
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>

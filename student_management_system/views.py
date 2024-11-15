@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from APP.models import CustomUser
 from APP.models import Profile
 
-
 def BASE(request):
     return render(request, 'base.html')
 
@@ -32,9 +31,9 @@ def doLogin(request):
             if user_type == '1':
                 return redirect('hod_home')
             elif user_type == '2':
-                return HttpResponse('This is Staff')
+                return redirect('staff_home')
             elif user_type == '3':
-                return HttpResponse('This is Student')
+                return redirect('student_home')
             else:
                 messages.error(request, "Email and Password Are Invalid !..")
                 return redirect('login')
@@ -73,7 +72,9 @@ def Profile_update(request):
         try:
             customuser = CustomUser.objects.get(id=request.user.id)
             customuser.first_name = first_name
-            customuser.last_name = last_name           
+            customuser.last_name = last_name 
+            # customuser.profile_pic = profile_pic 
+
             if password:
                 customuser.set_password(password)
             if profile_pic:

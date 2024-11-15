@@ -1,0 +1,147 @@
+{% extends "base.html" %} {% block content %}
+<section class="content">
+  <div class="container-fluid mt-4">
+    <div class="page-header">
+      <div class="row align-items-center" style="margin-left: 307px">
+        <div class="col">
+          <h3 class="page-title">Apply Leave</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+            <li class="breadcrumb-item">Apply Leave</li>
+          </ul>
+        </div>
+        {% include "includes/messages.html" %}
+        <div class="col-auto text-right float-right ml-auto mt-4">
+          <!-- Corrected modal toggle -->
+          <button
+            class="btn btn-primary mr-2"
+            data-toggle="modal"
+            data-target=".bd-example-modal-lg"
+            type="button"
+          >
+            <i class="fas fa-pray"></i> &nbsp;&nbsp; Apply View History
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Apply Leave Form -->
+    <div class="col-md-12">
+      <div
+        class="card card-primary"
+        style="background-color: gainsboro; margin-left: 307px"
+      >
+        <h1 class="text-center mt-2">Apply For Leave</h1>
+        <form action="{% url 'student_apply_leave_save' %}" method="post">
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="form-group">
+              <label>Leave Date</label>
+              <input
+                type="date"
+                name="leave_date"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea
+                class="form-control"
+                style="height: 250px"
+                name="leave_message"
+                required
+              ></textarea>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-success">Leave-Apply</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade bd-example-modal-lg"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal content goes here -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">View History</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card card-table">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    id="table"
+                    class="table table-hover table-center mb-0 datatable"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Message</th>
+
+                        <th class="text-center">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in student_leave_history %}
+                      <tr>
+                        <td>{{ i.data }}</td>
+
+                        <td>{{i.message}}</td>
+
+                        <td class="text-right">
+                          <div class="actions d-flex justify-content-end">
+                            {% if i.status == 0 %}
+                            <span class="badge badge-info">Pendding</span>
+
+                            {% elif i.status == 1 %}
+
+                            <span class="badge badge-success">Accepted</span>
+
+                            {% else %}
+                            <span class="badge badge-danger">Rejected</span>
+
+                            {% endif %}
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

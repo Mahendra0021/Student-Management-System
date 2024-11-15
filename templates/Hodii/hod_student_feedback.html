@@ -1,0 +1,225 @@
+{% include "base.html" %} {% block content %}
+<div class="content container-fluid">
+  <div class="page-header">
+    <div class="row align-items-center" style="margin-left: 245px">
+      <div class="col">
+        <h3 class="page-title">Staff Feedback Reply</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+          <li class="breadcrumb-item">Staff Feedback Reply</li>
+        </ul>
+      </div>
+      {% include "includes/messages.html" %}
+      <div class="col-auto text-right float-right ml-auto mt-4">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#staticBackdrop"
+        >
+          View-All-Student-Feedback
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-left: 250px">
+    <div class="col-sm-12">
+      <div class="card card-table">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table
+              id="table"
+              class="table table-hover table-center mb-0 datatable"
+            >
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th> Student Name</th>
+                  <th>Feedback</th>
+                  <th>Date</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in feedback %}
+                <tr>
+                  <td>{{ i.id }}</td>
+                  <td>
+                    <h2 class="table-avatar d-flex align-items-center">
+                      <a href="#" class="avatar avatar-sm mr-2">
+                        <img
+                          src="{{ i.student_id.admin.profile_pic.url }}"
+                          alt="profile picture"
+                          class="avatar-img rounded-circle"
+                          width="40"
+                          height="40"
+                        />
+                      </a>
+                      <a href="#" style="font-size: 16px">
+                        {{ i.student_id.admin.first_name }} &nbsp; {{ i.student_id.admin.last_name }}
+                      </a>
+                    </h2>
+                  </td>
+                  <td>{{ i.feedback }}</td>
+                  <td>{{ i.created_at  }}</td>
+
+                  <td class="text-right">
+                    <button
+                      class="btn btn-success"
+                      data-toggle="modal"
+                      data-target="#sendnotificaion-{{forloop.counter}}"
+                    >
+                     Reply
+                    </button>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View-All-Notificaion -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-backdrop="static"
+  data-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Feedback</h1>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+
+
+        <div class="row" >
+          <div class="col-sm-12">
+            <div class="card card-table">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    id="table"
+                    class="table table-hover table-center mb-0 datatable"
+                  >
+                    <thead>
+                      <tr>
+                       
+                        <th  style="width: 50%;">Feedback</th>
+                        <th class="text-center"  style="width: 30%;">reply</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in feedback_history %}
+                      <tr>
+                        <td >{{i.feedback}}</td>
+                        {% if i.status == 0 %}
+                        <td ><span class="badge rounded-pill badge-danger">No Reply </span></td>
+                     {% else %}
+                        <td > {{i.feedback_reply}}</td>
+                          
+                        {% endif %}
+      
+                       
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+{% for i in feedback %}
+<div
+  class="modal fade"
+  id="sendnotificaion-{{forloop.counter}}"
+  data-backdrop="static"
+  data-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="staticBackdropLabel1">
+          Reply To - {{i.student_id.admin.first_name}}
+          {{i.student_id.admin.last_name}}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url "hod_student_feedback_save" %}" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <input
+            value="{{i.id}}"
+              type="text"
+              name="feedback_id"
+              class="form-control"
+              hidden
+            />
+            <textarea
+              row="4"
+              class="form-control"
+              name="feedback_reply"                     
+            >
+          </textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Send
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endblock content %}

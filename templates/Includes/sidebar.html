@@ -1,74 +1,58 @@
 {% load static %}
+{% load active_link_tags %}
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="#" class="brand-link">
-    <img src="{% static "img/Mahendra-pic1.jpg" %}" alt="" class="brand-image
-    img-circle elevation-3" style="width: 50px; height: 300px;" >
+    <img src="{% static 'img/Mahendra-pic1.jpg' %}" alt="Profile Picture" class="brand-image img-circle elevation-3" style="width: 50px; height: 300px;" >
     <span class="brand-text font-weight-light">Mahendra-Sain</span>
   </a>
 
   <!-- Sidebar -->
+
+  {% if user.user_type == '1' %}
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-
     <nav class="mt-2">
-      <ul
-        class="nav nav-pills nav-sidebar flex-column"
-        data-widget="treeview"
-        role="menu"
-        data-accordion="false"
-      >
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
-        <li class="nav-item ">
-          <a href="#" class="nav-link ">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a href="{% url 'hod_home' %}" class="nav-link {% if request.resolver_match.url_name == 'hod_home' %}active{% endif %}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Dashboard
-              <i class="right fas fa-angle-left"></i>
-            </p>
+            <p>Dashboard</p>
           </a>
         </li>
 
-        <li class="nav-item">
+        <!-- Students -->
+        <li class="nav-item {% if request.resolver_match.url_name == 'student_add' or request.resolver_match.url_name == 'view_student' %}menu-open{% endif %}">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-copy"></i>
+            <i class="nav-icon fas fa-user-graduate"></i>
             <p>
               Students
               <i class="fas fa-angle-left right"></i>
-              <span class="badge badge-info right">6</span>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="pages/layout/top-nav.html" class="nav-link">
+              <a href="{% url 'student_add' %}" class="nav-link {% if request.resolver_match.url_name == 'student_add' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Student List</p>
+                <p>Add Student</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+              <a href="{% url 'view_student' %}" class="nav-link {% if request.resolver_match.url_name == 'view_student' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Student View</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/layout/boxed.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Student Add</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Student Edit</p>
+                <p>View Student</p>
               </a>
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+
+        <!-- Staff -->
+        <li class="nav-item {% if request.resolver_match.url_name == 'add_staff' or request.resolver_match.url_name == 'view_staff' %}menu-open{% endif %}">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-chart-pie"></i>
+            <i class="nav-icon fas fa-chalkboard-teacher"></i>
             <p>
               Staff
               <i class="right fas fa-angle-left"></i>
@@ -76,28 +60,22 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+              <a href="{% url 'add_staff' %}" class="nav-link {% if request.resolver_match.url_name == 'add_staff' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Staff View</p>
+                <p>Add Staff</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/layout/boxed.html" class="nav-link">
+              <a href="{% url 'view_staff' %}" class="nav-link {% if request.resolver_match.url_name == 'view_staff' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Staff Add</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Staff Edit</p>
+                <p>View Staff</p>
               </a>
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {% if request.resolver_match.url_name == 'add_course' or request.resolver_match.url_name == 'view_course' %}menu-open{% endif %}">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-tree"></i>
+            <i class="nav-icon fas fa-graduation-cap"></i>
             <p>
               Course
               <i class="fas fa-angle-left right"></i>
@@ -105,28 +83,23 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="pages/UI/general.html" class="nav-link">
+              <a href="{% url 'add_course' %}" class="nav-link {% if request.resolver_match.url_name == 'add_course' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Course View</p>
+                <p>Add Course</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/UI/icons.html" class="nav-link">
+              <a href="{% url 'view_course' %}" class="nav-link {% if request.resolver_match.url_name == 'view_course' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Course Add</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/UI/buttons.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Course Edit</p>
+                <p>View Course</p>
               </a>
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+        
+        <li class="nav-item {% if request.resolver_match.url_name == 'add_subject' or request.resolver_match.url_name == 'view_subject' %}menu-open{% endif %}">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
+            <i class="nav-icon fas fa-book-reader"></i>
             <p>
               Subjects
               <i class="fas fa-angle-left right"></i>
@@ -134,116 +107,252 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="pages/forms/general.html" class="nav-link">
+              <a href="{% url 'add_subject' %}" class="nav-link {% if request.resolver_match.url_name == 'add_subject' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Subject List</p>
+                <p>Add Subject</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/forms/general.html" class="nav-link">
+              <a href="{% url 'view_subject' %}" class="nav-link {% if request.resolver_match.url_name == 'view_subject' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Subject Add</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/forms/general.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Subject Edit</p>
+                <p>View Subject</p>
               </a>
             </li>
           </ul>
-       
         </li>
+        
 
-        <li class="nav-item">
+        <li class="nav-item {% if request.resolver_match.url_name == 'add_session' or request.resolver_match.url_name == 'view_session' %}menu-open{% endif %}">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
+            <i class="nav-icon fas fa-clock"></i>
             <p>
-             Session
+              Session
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="pages/forms/general.html" class="nav-link">
+              <a href="{% url 'add_session' %}" class="nav-link {% if request.resolver_match.url_name == 'add_session' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Session View</p>
+                <p>Add Session</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/forms/general.html" class="nav-link">
+              <a href="{% url 'view_session' %}" class="nav-link {% if request.resolver_match.url_name == 'view_session' %}active{% endif %}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Session Add</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/forms/general.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Session Edit</p>
+                <p>View Session</p>
               </a>
             </li>
           </ul>
-       
         </li>
+        <li class="nav-item">
         <li class="nav-item ">
-          <a href="#" class="nav-link ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+          <a href="{% url "send_notificaion" %}" class="nav-link ">
+            <i class="fas fa-bell"></i>
             <p>
-              View Attendance
-              <i class="right fas fa-angle-left"></i>
+              Send Staff Notification
+              
             </p>
           </a>
         </li>
         <li class="nav-item ">
-          <a href="#" class="nav-link ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+          <a href="{% url "student_notificaion" %}" class="nav-link ">
+            <i class="fas fa-bell"></i>
+            <p>
+              Send Student Notification
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a href="{% url "view_attendance" %}" class="nav-link ">
+            <i class="nav-icon fas fa-calendar"></i>
+            <p>
+            View Attendance
+             
+            </p>
+          </a>
+        </li>
+       
+
+
+
+        <li class="nav-item ">
+          <a href="{% url "hod_staff_feedback" %}" class="nav-link ">
+            <i class="nav-icon fas fa-comments"></i>
             <p>
              Staff Feedback
-              <i class="right fas fa-angle-left"></i>
-            </p>
+             </p>
           </a>
         </li>
        
         <li class="nav-item ">
-          <a href="#" class="nav-link ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+          <a href="{% url "hod_student_feedback" %}" class="nav-link ">
+            <i class="nav-icon fas fa-comments"></i>
             <p>
               Student Feedback
-              <i class="right fas fa-angle-left"></i>
+            
             </p>
           </a>
         </li>
         <li class="nav-item ">
-          <a href="#" class="nav-link ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+          <a href="{% url "staff_leave_view" %}" class="nav-link ">
+            <i class="nav-icon fas fa-envelope"></i>
             <p>
               Staff Leave
-              <i class="right fas fa-angle-left"></i>
+              
             </p>
           </a>
         </li>
         <li class="nav-item ">
-          <a href="#" class="nav-link ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+          <a href="{% url "student_leave_view" %}" class="nav-link ">
+            <i class="nav-icon fas fa-envelope"></i>
             <p>
               Student Leave 
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a href="{% url "logout" %}" class="nav-link bg-danger">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Logout
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-        </li>
-        <h1>&#128512</h1>
            
-    </nav>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link bg-danger">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Logout</p>
+          </a>
+        </li> 
+        <!-- <h1>&#128512</h1>-->
+           
+    
 
-    <!-- SidebarSearch Form -->
+        <!-- Logout -->
+        </li>
+      </ul>
+    </nav>
   </div>
+
+ <!-- Sidebar Staff  panel (optional) -->
+
+  {% elif user.user_type == '2' %}
+
+
+
+
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a href="{% url 'staff_home' %}" class="nav-link {% if request.resolver_match.url_name == 'hod_home' %}active{% endif %}">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url "staff_take_attendance" %}" class="nav-link {% if request.resolver_match.url_name == '' %}active{% endif %}">
+            <i class="nav-icon fas fa-calendar-alt"></i>
+            <p>Take Attendance</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url "staff_view_attendance" %}" class="nav-link {% if request.resolver_match.url_name == 'staff_view_attendance' %}active{% endif %}">
+            <i class="nav-icon fas fa-calendar-alt"></i>
+            <p>View update Attendance</p>
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a href="{% url "staff_add_result" %}" class="nav-link {% if request.resolver_match.url_name == '' %}active{% endif %}">
+            <i class="nav-icon fas fa-poll-h"></i>
+            <p>Add Result</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'staff_apply_leave' %}" class="nav-link">
+            <i class="nav-icon fas fa-envelope-open"></i>
+            <p>Apply For Leave</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'staff_feedback' %}" class="nav-link ">
+            <i class="nav-icon fas fa-comment"></i>
+            <p>Send Feedback</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'notificaion' %}" class="nav-link ">
+            <i class="nav-icon fas fa-bell"></i>
+            <p>Notificaion</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link bg-danger">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Logout</p>
+          </a>
+        </li> 
+      </ul>
+    </nav>
+  </div>
+  {% else %}
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a href="{% url 'student_home' %}" class="nav-link {% if request.resolver_match.url_name == 'student_home' %}active{% endif %}">
+            <i class="nav-icon fas fa-holly-berry"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url "student_view_attendance" %}" class="nav-link ">
+            <i class="nav-icon fas fa-calendar" aria-hidden="true"></i>
+            <span>View Attendance</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url "student_view_result" %}" class="nav-link ">
+            <i class="nav-icon fas fa-poll" aria-hidden="true"></i>
+            <span>View Result</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url "student_apply_leave" %}" class="nav-link ">
+            <i class="nav-icon fas fa-pray" aria-hidden="true"></i>
+            <span>Apply Leave</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url "student__feedback" %}" class="nav-link ">
+            <i class="nav-icon fas fa-comment" aria-hidden="true"></i>
+            <span>Send Feedback</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url "student__notificaion" %}" class="nav-link ">
+            <i class="nav-icon fas fa-bell" aria-hidden="true"></i>
+            <span>Notificaion</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link bg-danger">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Logout</p>
+          </a>
+        </li> 
+      </ul>
+    </nav>
+  </div>
+
+  {% endif %}
 </aside>
